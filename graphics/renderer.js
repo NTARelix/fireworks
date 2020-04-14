@@ -22,8 +22,6 @@ export function createRenderer(canvas) {
   const renderRockets = createRocketProgram(gl, 20)
   const projectionMatrix = createMatrix()
   return function render(rockets) {
-    canvas.width = document.body.clientWidth
-    canvas.height = document.body.clientHeight
     projection(projectionMatrix, canvas.width, canvas.height)
     gl.viewport(0, 0, gl.canvas.width, gl.canvas.height)
     gl.clearColor(0, 0, 0, 1)
