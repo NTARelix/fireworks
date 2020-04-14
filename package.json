@@ -1,0 +1,8 @@
+{
+  "name": "fireworks",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node static-file-server.js"
+  }
+}
