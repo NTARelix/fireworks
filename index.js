@@ -14,12 +14,16 @@ function main() {
   const fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSource)
   const program = createProgram(gl, vertexShader, fragmentShader)
   const positionAttributeLocation = gl.getAttribLocation(program, 'a_position')
+  const resolutionUniformLocation = gl.getUniformLocation(program, 'u_resolution')
   const positionBuffer = gl.createBuffer()
   gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer)
   const positions = [
-    0, 0,
-    0, 0.5,
-    0.7, 0
+    10, 20,
+    80, 20,
+    10, 30,
+    10, 30,
+    80, 20,
+    80, 30,
   ]
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW)
   const vao = gl.createVertexArray()
@@ -31,7 +35,8 @@ function main() {
   gl.clear(gl.COLOR_BUFFER_BIT)
   gl.useProgram(program)
   gl.bindVertexArray(vao)
-  gl.drawArrays(gl.TRIANGLES, 0, 3)
+  gl.uniform2f(resolutionUniformLocation, gl.canvas.width, gl.canvas.height)
+  gl.drawArrays(gl.TRIANGLES, 0, 6)
 }
 
 main()
