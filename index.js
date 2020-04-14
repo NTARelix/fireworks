@@ -15,6 +15,7 @@ function main() {
   const program = createProgram(gl, vertexShader, fragmentShader)
   const positionAttributeLocation = gl.getAttribLocation(program, 'a_position')
   const resolutionUniformLocation = gl.getUniformLocation(program, 'u_resolution')
+  const colorUniformLocation = gl.getUniformLocation(program, 'u_color')
   const positionBuffer = gl.createBuffer()
   gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer)
   const positions = [
@@ -36,6 +37,7 @@ function main() {
   gl.useProgram(program)
   gl.bindVertexArray(vao)
   gl.uniform2f(resolutionUniformLocation, gl.canvas.width, gl.canvas.height)
+  gl.uniform4f(colorUniformLocation, Math.random(), Math.random(), Math.random(), 1)
   gl.drawArrays(gl.TRIANGLES, 0, 6)
 }
 
