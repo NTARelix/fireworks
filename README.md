@@ -11,5 +11,3 @@ WIP canvas fireworks. Available for display at https://ntarelix.github.io/firewo
 3. Open http://localhost:8080/index.html in your browser
 4. Make changes to the source code
 5. Refresh the web page to see your changes
-
-## 
