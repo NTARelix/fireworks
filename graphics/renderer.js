@@ -19,7 +19,7 @@ import { createRocketProgram } from './rocket-program.js'
 export function createRenderer(canvas) {
   const gl = canvas.getContext('webgl2')
   if (!gl) return alert('Failed to create WebGL2 context. It is likely that you are running an older browser.')
-  const renderRockets = createRocketProgram(gl, 20)
+  const renderRockets = createRocketProgram(gl)
   const projectionMatrix = createMatrix()
   return function render(rockets) {
     projection(projectionMatrix, canvas.width, canvas.height)

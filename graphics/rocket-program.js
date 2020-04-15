@@ -20,6 +20,8 @@ const FRAGMENT_SHADER_SOURCE = `#version 300 es
 
 const WING_WIDTH_PX = 3
 const HEIGHT_PX = 10
+const MAX_ROCKET_COUNT = 1000
+const VERTICES_PER_ROCKET = 6
 
 /**
  * @typedef {Object} Rocket
@@ -35,11 +37,10 @@ const HEIGHT_PX = 10
 
 /**
  * @param {WebGL2RenderingContext} gl
- * @param {number} capacity Max number of rockets to be rendered
  * @returns {RocketRenderer}
  */
-export function createRocketProgram(gl, capacity) {
-  const rocketVertices = new Float32Array(capacity * 3)
+export function createRocketProgram(gl) {
+  const rocketVertices = new Float32Array(MAX_ROCKET_COUNT * VERTICES_PER_ROCKET)
   const vertexShader = createShader(gl, gl.VERTEX_SHADER, VERTEX_SHADER_SOURCE)
   const fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, FRAGMENT_SHADER_SOURCE)
   const program = createProgram(gl, vertexShader, fragmentShader)
@@ -55,14 +56,14 @@ export function createRocketProgram(gl, capacity) {
   return function renderRockets(projectionMatrix, rockets) {
     for (let i = 0; i < rockets.length; i++) {
       // nose
-      rocketVertices[i * 6 + 0] = rockets[i].x
-      rocketVertices[i * 6 + 1] = rockets[i].y
+      rocketVertices[i * VERTICES_PER_ROCKET + 0] = rockets[i].x
+      rocketVertices[i * VERTICES_PER_ROCKET + 1] = rockets[i].y
       // right wing
-      rocketVertices[i * 6 + 2] = rockets[i].x + WING_WIDTH_PX
-      rocketVertices[i * 6 + 3] = rockets[i].y + HEIGHT_PX
+      rocketVertices[i * VERTICES_PER_ROCKET + 2] = rockets[i].x + WING_WIDTH_PX
+      rocketVertices[i * VERTICES_PER_ROCKET + 3] = rockets[i].y + HEIGHT_PX
       // left wing
-      rocketVertices[i * 6 + 4] = rockets[i].x - WING_WIDTH_PX
-      rocketVertices[i * 6 + 5] = rockets[i].y + HEIGHT_PX
+      rocketVertices[i * VERTICES_PER_ROCKET + 4] = rockets[i].x - WING_WIDTH_PX
+      rocketVertices[i * VERTICES_PER_ROCKET + 5] = rockets[i].y + HEIGHT_PX
     }
     gl.bufferData(gl.ARRAY_BUFFER, rocketVertices, gl.STATIC_DRAW)
     gl.useProgram(program)
