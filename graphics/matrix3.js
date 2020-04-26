@@ -136,14 +136,14 @@ export function scaling(outArray, sx, sy) {
 export function multiply(outArray, a, b) {
   return setArray(
     outArray,
-    b[M00] * a[M00] + b[M01] * a[M10] + b[M02] * a[M20],
-    b[M00] * a[M01] + b[M01] * a[M11] + b[M02] * a[M21],
-    b[M00] * a[M02] + b[M01] * a[M12] + b[M02] * a[M22],
-    b[M10] * a[M00] + b[M11] * a[M10] + b[M12] * a[M20],
-    b[M10] * a[M01] + b[M11] * a[M11] + b[M12] * a[M21],
-    b[M10] * a[M02] + b[M11] * a[M12] + b[M12] * a[M22],
-    b[M20] * a[M00] + b[M21] * a[M10] + b[M22] * a[M20],
-    b[M20] * a[M01] + b[M21] * a[M11] + b[M22] * a[M21],
-    b[M20] * a[M02] + b[M21] * a[M12] + b[M22] * a[M22],
+    a[M00] * b[M00] + a[M10] * b[M01] + a[M20] * b[M02],
+    a[M00] * b[M10] + a[M10] * b[M11] + a[M20] * b[M12],
+    a[M00] * b[M20] + a[M10] * b[M21] + a[M20] * b[M22],
+    a[M01] * b[M00] + a[M11] * b[M01] + a[M21] * b[M02],
+    a[M01] * b[M10] + a[M11] * b[M11] + a[M21] * b[M12],
+    a[M01] * b[M20] + a[M11] * b[M21] + a[M21] * b[M22],
+    a[M02] * b[M00] + a[M12] * b[M01] + a[M22] * b[M02],
+    a[M02] * b[M10] + a[M12] * b[M11] + a[M22] * b[M12],
+    a[M02] * b[M20] + a[M12] * b[M21] + a[M22] * b[M22],
   )
 }
