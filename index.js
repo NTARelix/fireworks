@@ -8,6 +8,7 @@ function main() {
   canvas.width = document.body.clientWidth
   canvas.height = document.body.clientHeight
   const render = createRenderer(canvas)
+  /** @type {Rocket[]} */
   const rockets = []
   addEventListener('resize', () => {
     canvas.width = document.body.clientWidth
@@ -22,7 +23,15 @@ function main() {
     )
     rockets.push(rocket)
   })
-  ticker(time => render(time, rockets))
+  ticker(time => {
+    for (let i = rockets.length - 1; i >= 0; i--) {
+      const rocket = rockets[i]
+      if (time >= rocket.explosionTime) {
+        rockets.splice(i, 1)
+      }
+    }
+    render(time, rockets)
+  })
 }
 
 main()
