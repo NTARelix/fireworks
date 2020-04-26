@@ -1,4 +1,4 @@
-import { createMatrix, projection } from './matrix3.js'
+import { createMatrix, multiply, scaling, translation, toString } from './matrix3.js'
 import { createRocketProgram } from './rocket-program.js'
 
 /**
@@ -20,9 +20,15 @@ export function createRenderer(canvas) {
   const gl = canvas.getContext('webgl2')
   if (!gl) return alert('Failed to create WebGL2 context. It is likely that you are running an older browser.')
   const renderRockets = createRocketProgram(gl)
+  const originAlignmentMatrix = createMatrix()
+  const resolutionMatrix = createMatrix()
   const projectionMatrix = createMatrix()
   return function render(rockets) {
-    projection(projectionMatrix, canvas.width, canvas.height)
+    multiply(
+      projectionMatrix,
+      scaling(resolutionMatrix, 2 / canvas.width, 2 / canvas.height),
+      translation(originAlignmentMatrix, -1, -1),
+    )
     gl.viewport(0, 0, gl.canvas.width, gl.canvas.height)
     gl.clearColor(0, 0, 0, 1)
     gl.clear(gl.COLOR_BUFFER_BIT)

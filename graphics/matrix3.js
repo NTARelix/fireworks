@@ -60,24 +60,6 @@ export function identity(outArray) {
 }
 
 /**
- * Creates a transformation matrix in for vertex shader projection in 2d space
- * from 2d coordinate space (0 to resolution; left to right and top to bottom)
- * to 2d clip space (-1 to 1; left to right and bottom to top)
- * @param {Float32Array} outArray Array in which the projection matrix will be written
- * @param {number} width Resolution width
- * @param {number} height Resolution height
- * @returns {Float32Array}
- */
-export function projection(outArray, width, height) {
-  return setArray(
-    outArray,
-    2 / width, 0, 0,
-    0, -2 / height, 0,
-    -1, 1, 1,
-  )
-}
-
-/**
  * Creates a translation matrix for 2d space
  * @param {Float32Array} outArray Array in which the translation matrix will be written
  * @param {number} tx X translation quantity

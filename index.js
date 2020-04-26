@@ -16,7 +16,7 @@ function main() {
   addEventListener('click', event => {
     rockets.push({
       x: event.clientX,
-      y: event.clientY,
+      y: canvas.height - event.clientY,
     })
     render(rockets)
   })

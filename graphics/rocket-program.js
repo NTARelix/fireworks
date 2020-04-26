@@ -60,10 +60,10 @@ export function createRocketProgram(gl) {
       rocketVertices[i * VERTICES_PER_ROCKET + 1] = rockets[i].y
       // right wing
       rocketVertices[i * VERTICES_PER_ROCKET + 2] = rockets[i].x + WING_WIDTH_PX
-      rocketVertices[i * VERTICES_PER_ROCKET + 3] = rockets[i].y + HEIGHT_PX
+      rocketVertices[i * VERTICES_PER_ROCKET + 3] = rockets[i].y - HEIGHT_PX
       // left wing
       rocketVertices[i * VERTICES_PER_ROCKET + 4] = rockets[i].x - WING_WIDTH_PX
-      rocketVertices[i * VERTICES_PER_ROCKET + 5] = rockets[i].y + HEIGHT_PX
+      rocketVertices[i * VERTICES_PER_ROCKET + 5] = rockets[i].y - HEIGHT_PX
     }
     gl.bufferData(gl.ARRAY_BUFFER, rocketVertices, gl.STATIC_DRAW)
     gl.useProgram(program)
