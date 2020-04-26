@@ -1,5 +1,6 @@
 import { createProgram } from './create-program.js'
 import { createShader } from './create-shader.js'
+import { Rocket } from '../entities/rocket.js'
 
 const VERTEX_SHADER_SOURCE = `#version 300 es
   in vec2 a_position;
@@ -24,15 +25,9 @@ const MAX_ROCKET_COUNT = 1000
 const VERTICES_PER_ROCKET = 6
 
 /**
- * @typedef {Object} Rocket
- * @property {number} x
- * @property {number} y
- */
-
-/**
  * @typedef {Function} RocketRenderer
  * @param {number} time
- * @param {ArrayBuffer} projectionMatrix
+ * @param {Float32Array} projectionMatrix
  * @param {Rocket[]} rockets
  */
 
