@@ -31,6 +31,7 @@ const VERTICES_PER_ROCKET = 6
 
 /**
  * @typedef {Function} RocketRenderer
+ * @param {number} time
  * @param {ArrayBuffer} projectionMatrix
  * @param {Rocket[]} rockets
  */
@@ -53,17 +54,17 @@ export function createRocketProgram(gl) {
   gl.bindVertexArray(vao)
   gl.enableVertexAttribArray(positionAttributeLocation)
   gl.vertexAttribPointer(positionAttributeLocation, 2, gl.FLOAT, false, 0, 0)
-  return function renderRockets(projectionMatrix, rockets) {
+  return function renderRockets(time, projectionMatrix, rockets) {
     for (let i = 0; i < rockets.length; i++) {
       // nose
-      rocketVertices[i * VERTICES_PER_ROCKET + 0] = rockets[i].x
-      rocketVertices[i * VERTICES_PER_ROCKET + 1] = rockets[i].y
+      rocketVertices[i * VERTICES_PER_ROCKET + 0] = rockets[i].getX()
+      rocketVertices[i * VERTICES_PER_ROCKET + 1] = rockets[i].getY(time)
       // right wing
-      rocketVertices[i * VERTICES_PER_ROCKET + 2] = rockets[i].x + WING_WIDTH_PX
-      rocketVertices[i * VERTICES_PER_ROCKET + 3] = rockets[i].y - HEIGHT_PX
+      rocketVertices[i * VERTICES_PER_ROCKET + 2] = rockets[i].getX() + WING_WIDTH_PX
+      rocketVertices[i * VERTICES_PER_ROCKET + 3] = rockets[i].getY(time) - HEIGHT_PX
       // left wing
-      rocketVertices[i * VERTICES_PER_ROCKET + 4] = rockets[i].x - WING_WIDTH_PX
-      rocketVertices[i * VERTICES_PER_ROCKET + 5] = rockets[i].y - HEIGHT_PX
+      rocketVertices[i * VERTICES_PER_ROCKET + 4] = rockets[i].getX() - WING_WIDTH_PX
+      rocketVertices[i * VERTICES_PER_ROCKET + 5] = rockets[i].getY(time) - HEIGHT_PX
     }
     gl.bufferData(gl.ARRAY_BUFFER, rocketVertices, gl.STATIC_DRAW)
     gl.useProgram(program)

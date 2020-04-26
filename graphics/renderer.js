@@ -1,14 +1,10 @@
-import { createMatrix, multiply, scaling, translation, toString } from './matrix3.js'
+import { createMatrix, multiply, scaling, translation } from './matrix3.js'
 import { createRocketProgram } from './rocket-program.js'
-
-/**
- * @typedef {Object} Rocket
- * @property {number} x
- * @property {number} y
- */
+import { Rocket } from '../entities/rocket.js'
 
 /**
  * @typedef {Function} Renderer
+ * @param {number} time
  * @param {Rocket[]} rockets
  */
 
@@ -23,7 +19,7 @@ export function createRenderer(canvas) {
   const originAlignmentMatrix = createMatrix()
   const resolutionMatrix = createMatrix()
   const projectionMatrix = createMatrix()
-  return function render(rockets) {
+  return function render(time, rockets) {
     multiply(
       projectionMatrix,
       scaling(resolutionMatrix, 2 / canvas.width, 2 / canvas.height),
@@ -32,6 +28,6 @@ export function createRenderer(canvas) {
     gl.viewport(0, 0, gl.canvas.width, gl.canvas.height)
     gl.clearColor(0, 0, 0, 1)
     gl.clear(gl.COLOR_BUFFER_BIT)
-    renderRockets(projectionMatrix, rockets)
+    renderRockets(time, projectionMatrix, rockets)
   }
 }
