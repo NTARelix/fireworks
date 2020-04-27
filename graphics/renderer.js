@@ -19,7 +19,7 @@ export function createRenderer(canvas) {
   const originAlignmentMatrix = createMatrix()
   const resolutionMatrix = createMatrix()
   const projectionMatrix = createMatrix()
-  return function render(time, rockets) {
+  return function render(time, rockets, sparks) {
     multiply(
       projectionMatrix,
       scaling(resolutionMatrix, 2 / canvas.width, 2 / canvas.height),
@@ -28,6 +28,6 @@ export function createRenderer(canvas) {
     gl.viewport(0, 0, gl.canvas.width, gl.canvas.height)
     gl.clearColor(0, 0, 0, 1)
     gl.clear(gl.COLOR_BUFFER_BIT)
-    renderRockets(time, projectionMatrix, rockets)
+    renderRockets(time, projectionMatrix, rockets, sparks)
   }
 }
