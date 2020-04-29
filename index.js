@@ -1,9 +1,13 @@
+import { createAudioBufferSource } from './audio/create-audio-buffer-source.js'
+import { getRocketAudioBuffers } from './audio/get-rocket-audio-buffers.js'
 import { Rocket } from './entities/rocket.js'
 import { Spark } from './entities/spark.js'
 import { createRenderer } from './graphics/renderer.js'
 import { ticker } from './ticker.js'
 
-function main() {
+async function main() {
+  const audioContext = new AudioContext()
+  const audioBuffers = await getRocketAudioBuffers(audioContext)
   const canvas = document.createElement('canvas')
   document.body.appendChild(canvas)
   canvas.width = document.body.clientWidth
@@ -24,12 +28,14 @@ function main() {
       Date.now(),
       (300 + Math.random() * 400) / 1000, // pixels per millisecond
     )
+    createAudioBufferSource(audioContext, audioBuffers.launch1).start()
     rockets.push(rocket)
   })
   ticker(time => {
     for (let i = rockets.length - 1; i >= 0; i--) {
       const rocket = rockets[i]
       if (time >= rocket.explosionTime) {
+        createAudioBufferSource(audioContext, audioBuffers.explodeSmall).start()
         rockets.splice(i, 1)
         const newSparkCount = 650 + Math.random() * 100
         const fireworkPower = 50 + Math.random() * 200
