@@ -22,7 +22,7 @@ function main() {
       event.clientX,
       canvas.height - event.clientY, // adjust event position to match rendered coordinate system
       Date.now(),
-      (400 + Math.random() * 200) / 1000 // pixels per millisecond
+      (300 + Math.random() * 400) / 1000, // pixels per millisecond
     )
     rockets.push(rocket)
   })
@@ -31,8 +31,8 @@ function main() {
       const rocket = rockets[i]
       if (time >= rocket.explosionTime) {
         rockets.splice(i, 1)
-        const newSparkCount = 40 + Math.random() * 20
-        const fireworkPower = 200 + Math.random() * 400
+        const newSparkCount = 650 + Math.random() * 100
+        const fireworkPower = 50 + Math.random() * 200
         for (let s = 0; s < newSparkCount; s++) {
           sparks.push(new Spark(
             rocket.getX(),
