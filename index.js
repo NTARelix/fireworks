@@ -4,6 +4,16 @@ import { Rocket } from './entities/rocket.js'
 import { Spark } from './entities/spark.js'
 import { createRenderer } from './graphics/renderer.js'
 import { ticker } from './ticker.js'
+import { Color } from './entities/color.js'
+
+const COLORS = [
+  new Color(1, 0, 0),
+  new Color(0, 1, 0),
+  new Color(0, 0, 1),
+  new Color(1, 1, 0),
+  new Color(1, 0, 1),
+  new Color(0, 1, 1),
+]
 
 async function main() {
   const audioContext = new AudioContext()
@@ -39,6 +49,7 @@ async function main() {
         rockets.splice(i, 1)
         const newSparkCount = 650 + Math.random() * 100
         const fireworkPower = 50 + Math.random() * 200
+        const sparkColor = COLORS[Math.floor(Math.random() * COLORS.length)]
         for (let s = 0; s < newSparkCount; s++) {
           sparks.push(new Spark(
             rocket.getX(),
@@ -47,6 +58,7 @@ async function main() {
             10 + Math.random() * fireworkPower,
             700 + Math.random() * 300,
             rocket.explosionTime,
+            sparkColor,
           ))
         }
       }

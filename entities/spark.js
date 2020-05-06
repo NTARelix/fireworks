@@ -1,5 +1,5 @@
 export class Spark {
-  constructor(x, y, direction, distance, duration, startTime) {
+  constructor(x, y, direction, distance, duration, startTime, color) {
     this.startX = x
     this.startY = y
     this.direction = direction
@@ -7,6 +7,7 @@ export class Spark {
     this.duration = duration
     this.startTime = startTime
     this.extinguishTime = startTime + duration
+    this.color = color
   }
 
   /**
