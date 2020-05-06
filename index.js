@@ -4,15 +4,15 @@ import { Rocket } from './entities/rocket.js'
 import { Spark } from './entities/spark.js'
 import { createRenderer } from './graphics/renderer.js'
 import { ticker } from './ticker.js'
-import { Color } from './entities/color.js'
+import { COLORS } from './entities/color.js'
 
-const COLORS = [
-  new Color(1, 0, 0),
-  new Color(0, 1, 0),
-  new Color(0, 0, 1),
-  new Color(1, 1, 0),
-  new Color(1, 0, 1),
-  new Color(0, 1, 1),
+const COLOR_CHOICES = [
+  COLORS.RED,
+  COLORS.GREEN,
+  COLORS.BLUE,
+  COLORS.CYAN,
+  COLORS.VIOLET,
+  COLORS.YELLOW,
 ]
 
 async function main() {
@@ -49,7 +49,7 @@ async function main() {
         rockets.splice(i, 1)
         const newSparkCount = 650 + Math.random() * 100
         const fireworkPower = 50 + Math.random() * 200
-        const sparkColor = COLORS[Math.floor(Math.random() * COLORS.length)]
+        const sparkColor = COLOR_CHOICES[Math.floor(Math.random() * COLOR_CHOICES.length)]
         for (let s = 0; s < newSparkCount; s++) {
           sparks.push(new Spark(
             rocket.getX(),
