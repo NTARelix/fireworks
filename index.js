@@ -4,16 +4,7 @@ import { Rocket } from './entities/rocket.js'
 import { Spark } from './entities/spark.js'
 import { createRenderer } from './graphics/renderer.js'
 import { ticker } from './ticker.js'
-import { COLORS } from './entities/color.js'
-
-const COLOR_CHOICES = [
-  COLORS.RED,
-  COLORS.GREEN,
-  COLORS.BLUE,
-  COLORS.CYAN,
-  COLORS.VIOLET,
-  COLORS.YELLOW,
-]
+import { createSimpleExplosion } from './spark-factories/simple.js'
 
 async function main() {
   const audioContext = new AudioContext()
@@ -47,20 +38,7 @@ async function main() {
       if (time >= rocket.explosionTime) {
         createAudioBufferSource(audioContext, audioBuffers.explodeSmall).start()
         rockets.splice(i, 1)
-        const newSparkCount = 650 + Math.random() * 100
-        const fireworkPower = 50 + Math.random() * 200
-        const sparkColor = COLOR_CHOICES[Math.floor(Math.random() * COLOR_CHOICES.length)]
-        for (let s = 0; s < newSparkCount; s++) {
-          sparks.push(new Spark(
-            rocket.getX(),
-            rocket.getY(rocket.explosionTime),
-            Math.random() * 2 * Math.PI,
-            10 + Math.random() * fireworkPower,
-            700 + Math.random() * 300,
-            rocket.explosionTime,
-            sparkColor,
-          ))
-        }
+        createSimpleExplosion(sparks, rocket.getX(), rocket.getY(rocket.explosionTime), rocket.explosionTime)
       }
     }
     for (let i = sparks.length - 1; i >= 0; i--) {
